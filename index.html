@@ -3,14 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gemini AI - Dark Thila Edition</title>
+  <title>Gemini AI - Enhanced Dark Thila Edition</title>
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <style>
+    :root {
+      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --bg-gradient: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --glass-bg: rgba(255, 255, 255, 0.1);
+      --text-primary: #ffffff;
+      --text-secondary: #b3b3b3;
+      --accent-color: #00d4ff;
+      --success-color: #00ff88;
+      --error-color: #ff4757;
+      --border-color: rgba(255, 255, 255, 0.1);
+    }
+
     * {
       box-sizing: border-box;
     }
@@ -19,58 +33,141 @@
       margin: 0;
       padding: 10px;
       font-family: "Noto Sans Sinhala", "Poppins", Arial, sans-serif;
-      background: #203a43; /* Fallback */
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: #eee;
+      background: var(--bg-gradient);
+      color: var(--text-primary);
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Animated Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+      animation: backgroundShift 20s ease-in-out infinite;
+      z-index: -1;
+    }
+
+    @keyframes backgroundShift {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.1) rotate(5deg); }
     }
 
     .chat-container {
       width: 95%;
-      max-width: 750px;
-      background: rgba(30, 41, 59, 0.95);
-      border-radius: 20px;
-      padding: 25px;
-      box-shadow: 0 10px 35px rgba(0,0,0,0.4);
+      max-width: 900px;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border-radius: 25px;
+      padding: 30px;
+      box-shadow: 
+        0 20px 40px rgba(0,0,0,0.3),
+        0 0 0 1px var(--border-color),
+        inset 0 1px 0 rgba(255,255,255,0.1);
       display: flex;
       flex-direction: column;
-      height: 85vh;
-      max-height: 800px;
-      min-height: 500px;
-      animation: fadeIn 1s ease-in-out;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.1);
+      height: 90vh;
+      max-height: 900px;
+      min-height: 600px;
+      animation: slideIn 0.8s ease-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chat-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--primary-gradient);
+      animation: shimmer 2s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 25px;
+      position: relative;
     }
 
     h1 {
-      text-align: center;
-      margin-bottom: 15px;
-      font-size: 26px;
+      margin: 0 0 10px 0;
+      font-size: 32px;
       font-weight: 700;
-      color: #38bdf8; /* Fallback */
-      background: linear-gradient(90deg, #38bdf8, #a78bfa);
+      background: var(--primary-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      animation: titleGlow 3s ease-in-out infinite alternate;
+      position: relative;
+    }
+
+    @keyframes titleGlow {
+      0% { filter: drop-shadow(0 0 5px rgba(102, 126, 234, 0.5)); }
+      100% { filter: drop-shadow(0 0 15px rgba(102, 126, 234, 0.8)); }
     }
     
     .subtitle {
-      text-align: center;
+      font-size: 16px;
+      color: var(--text-secondary);
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--glass-bg);
+      border-radius: 12px;
+      padding: 8px 16px;
       margin-bottom: 20px;
       font-size: 14px;
-      color: #94a3b8;
-      font-weight: 600;
+      border: 1px solid var(--border-color);
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success-color);
+      animation: pulse 2s infinite;
+    }
+
+    .message-counter {
+      color: var(--text-secondary);
+      font-size: 12px;
     }
 
     .messages {
       flex: 1;
       overflow-y: auto;
-      padding-right: 5px;
+      padding: 0 10px 0 0;
       scrollbar-width: thin;
-      scrollbar-color: #475569 #1e293b;
+      scrollbar-color: var(--accent-color) transparent;
+      position: relative;
     }
     
     .messages::-webkit-scrollbar {
@@ -78,66 +175,111 @@
     }
     
     .messages::-webkit-scrollbar-track {
-      background: #1e293b;
-      border-radius: 3px;
+      background: transparent;
     }
     
     .messages::-webkit-scrollbar-thumb {
-      background: #475569;
+      background: var(--accent-color);
       border-radius: 3px;
     }
 
     .message {
-      margin: 10px 0;
-      padding: 12px 16px;
-      border-radius: 15px;
-      line-height: 1.5;
-      max-width: 85%;
+      margin: 15px 0;
+      padding: 16px 20px;
+      border-radius: 20px;
+      line-height: 1.6;
+      max-width: 80%;
       word-wrap: break-word;
-      animation: fadeInUp 0.5s ease;
+      animation: messageSlide 0.5s ease;
       position: relative;
+      font-size: 15px;
+    }
+
+    @keyframes messageSlide {
+      from { 
+        opacity: 0; 
+        transform: translateY(20px) scale(0.95); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+      }
     }
 
     .user {
-      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
-      color: #0f172a;
+      background: var(--primary-gradient);
+      color: white;
       margin-left: auto;
-      border-bottom-right-radius: 3px;
+      border-bottom-right-radius: 5px;
       font-weight: 500;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
     }
 
     .bot {
-      background: rgba(51, 65, 85, 0.8);
-      border-bottom-left-radius: 3px;
-      border: 1px solid rgba(255,255,255,0.05);
+      background: var(--glass-bg);
+      border: 1px solid var(--border-color);
+      border-bottom-left-radius: 5px;
+      backdrop-filter: blur(10px);
+      position: relative;
+    }
+    
+    .bot::before {
+      content: '🤖';
+      position: absolute;
+      left: -10px;
+      top: -5px;
+      font-size: 20px;
+      background: var(--card-bg);
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-color);
     }
     
     .loading {
-      color: #38bdf8;
+      color: var(--accent-color);
       font-style: italic;
     }
     
+    .loading::after {
+      content: '...';
+      animation: dots 1.5s steps(4, end) infinite;
+    }
+
+    @keyframes dots {
+      0%, 20% { color: transparent; text-shadow: .25em 0 0 transparent, .5em 0 0 transparent; }
+      40% { color: var(--accent-color); text-shadow: .25em 0 0 transparent, .5em 0 0 transparent; }
+      60% { text-shadow: .25em 0 0 var(--accent-color), .5em 0 0 transparent; }
+      80%, 100% { text-shadow: .25em 0 0 var(--accent-color), .5em 0 0 var(--accent-color); }
+    }
+    
     .error {
-      color: #ef4444;
-      background: rgba(239, 68, 68, 0.1);
-      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: var(--error-color);
+      background: rgba(255, 71, 87, 0.1);
+      border: 1px solid rgba(255, 71, 87, 0.3);
     }
 
     .input-container {
-      margin-top: 15px;
+      margin-top: 20px;
+      position: relative;
     }
 
     .input-box {
       display: flex;
-      background: rgba(15, 23, 42, 0.8);
-      border-radius: 15px;
-      padding: 8px;
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: border-color 0.3s ease;
+      background: var(--glass-bg);
+      border-radius: 20px;
+      padding: 5px;
+      border: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
     }
     
     .input-box:focus-within {
-      border-color: #38bdf8;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
     }
 
     textarea {
@@ -145,115 +287,223 @@
       border: none;
       outline: none;
       background: transparent;
-      color: #eee;
-      padding: 10px;
+      color: var(--text-primary);
+      padding: 15px;
       resize: none;
-      font-size: 15px;
+      font-size: 16px;
       font-family: inherit;
       min-height: 20px;
-      max-height: 100px;
+      max-height: 120px;
     }
     
     textarea::placeholder {
-      color: #64748b;
+      color: var(--text-secondary);
     }
 
-    button {
-      background: linear-gradient(135deg, #38bdf8, #a78bfa);
+    .send-button {
+      background: var(--primary-gradient);
       border: none;
-      border-radius: 12px;
-      padding: 10px 18px;
+      border-radius: 15px;
+      padding: 12px 20px;
       cursor: pointer;
-      font-size: 15px;
-      font-weight: 700;
-      color: #0f172a;
-      transition: all 0.2s ease;
+      font-size: 16px;
+      font-weight: 600;
+      color: white;
+      transition: all 0.3s ease;
       white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 100px;
+      justify-content: center;
     }
 
-    button:hover {
+    .send-button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(56, 189, 248, 0.4);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
     }
     
-    button:active {
+    .send-button:active {
       transform: translateY(0);
     }
     
-    button:disabled {
+    .send-button:disabled {
       opacity: 0.6;
       cursor: not-allowed;
       transform: none;
     }
 
-    @keyframes fadeIn {
-      from { 
-        opacity: 0; 
-        transform: scale(0.95) translateY(20px); 
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      background: var(--glass-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 8px 15px;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .action-btn:hover {
+      background: var(--accent-color);
+      color: white;
+      transform: translateY(-1px);
+    }
+
+    .typing-indicator {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent-color);
+      font-size: 14px;
+      margin: 10px 0;
+    }
+
+    .typing-dots {
+      display: flex;
+      gap: 3px;
+    }
+
+    .typing-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      animation: typingDots 1.4s ease-in-out infinite both;
+    }
+
+    .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+    .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes typingDots {
+      0%, 80%, 100% { 
+        transform: scale(0);
+        opacity: 0.5;
       }
-      to { 
-        opacity: 1; 
-        transform: scale(1) translateY(0); 
+      40% { 
+        transform: scale(1);
+        opacity: 1;
       }
     }
 
-    @keyframes fadeInUp {
+    @keyframes slideIn {
       from { 
         opacity: 0; 
-        transform: translateY(15px); 
+        transform: scale(0.9) translateY(50px);
       }
       to { 
         opacity: 1; 
-        transform: translateY(0); 
+        transform: scale(1) translateY(0);
       }
     }
-    
+
     @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-    
-    .typing {
-      animation: pulse 1.5s ease-in-out infinite;
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(0.95); }
     }
     
     /* Mobile Responsive */
     @media (max-width: 768px) {
       body {
         padding: 5px;
+        overflow-y: auto;
       }
       
       .chat-container {
         width: 100%;
-        height: 90vh;
+        height: 100vh;
+        max-height: 100vh;
+        min-height: 100vh;
         padding: 15px;
-        border-radius: 15px;
+        border-radius: 0;
+        margin: 0;
       }
       
       h1 {
-        font-size: 22px;
-        margin-bottom: 10px;
+        font-size: 20px;
+        margin-bottom: 8px;
       }
       
       .subtitle {
         font-size: 12px;
+        margin-bottom: 10px;
+      }
+
+      .status-bar {
+        padding: 6px 12px;
         margin-bottom: 15px;
+        font-size: 12px;
+      }
+
+      .messages {
+        padding-right: 5px;
+        margin-bottom: 10px;
       }
       
       .message {
-        max-width: 90%;
-        padding: 10px 12px;
+        max-width: 85%;
+        padding: 10px 14px;
         font-size: 14px;
+        margin: 8px 0;
+        border-radius: 18px;
+      }
+
+      .bot::before {
+        left: -8px;
+        top: -3px;
+        width: 24px;
+        height: 24px;
+        font-size: 16px;
+      }
+
+      .input-container {
+        margin-top: 10px;
+      }
+
+      .input-box {
+        padding: 4px;
+        border-radius: 16px;
       }
       
       textarea {
-        font-size: 16px; /* Prevent zoom on iOS */
-        padding: 8px;
+        font-size: 16px;
+        padding: 12px;
+        line-height: 1.4;
       }
       
-      button {
-        padding: 8px 12px;
+      .send-button {
+        padding: 10px 14px;
         font-size: 14px;
+        border-radius: 12px;
+        min-width: 80px;
+      }
+
+      .action-buttons {
+        gap: 6px;
+        margin-top: 10px;
+        justify-content: center;
+      }
+
+      .action-btn {
+        font-size: 11px;
+        padding: 6px 10px;
+        border-radius: 10px;
+        flex: 1;
+        min-width: 60px;
+        text-align: center;
+      }
+
+      .typing-indicator {
+        font-size: 12px;
+        margin: 8px 0;
       }
     }
     
@@ -261,21 +511,160 @@
       .chat-container {
         padding: 10px;
       }
+
+      h1 {
+        font-size: 18px;
+      }
+
+      .subtitle {
+        font-size: 11px;
+      }
       
       .input-box {
-        padding: 6px;
+        padding: 3px;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      textarea {
+        padding: 10px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .send-button {
+        width: 100%;
+        padding: 12px;
+        justify-content: center;
+        border-radius: 12px;
+      }
+
+      .status-bar {
+        flex-direction: column;
+        gap: 4px;
+        text-align: center;
+        padding: 8px;
+      }
+
+      .message {
+        max-width: 90%;
+        font-size: 13px;
+        padding: 8px 12px;
+      }
+
+      .action-buttons {
+        flex-wrap: wrap;
+        gap: 5px;
+      }
+
+      .action-btn {
+        font-size: 10px;
+        padding: 5px 8px;
+        min-width: calc(50% - 2.5px);
+      }
+    }
+
+    @media (max-width: 360px) {
+      .chat-container {
+        padding: 8px;
+      }
+
+      h1 {
+        font-size: 16px;
+      }
+
+      .action-btn {
+        min-width: calc(100% / 3 - 4px);
+        font-size: 9px;
+      }
+
+      .message {
+        font-size: 12px;
+        padding: 6px 10px;
+      }
+    }
+
+    /* Touch-friendly improvements */
+    @media (hover: none) and (pointer: coarse) {
+      .send-button, .action-btn {
+        min-height: 44px;
+      }
+
+      textarea {
+        min-height: 44px;
+      }
+
+      .input-box:focus-within {
+        transform: none;
+      }
+
+      .send-button:hover, .action-btn:hover {
+        transform: none;
+      }
+
+      .send-button:active, .action-btn:active {
+        transform: scale(0.98);
+        opacity: 0.8;
+      }
+    }
+
+    /* Landscape mobile */
+    @media (max-width: 768px) and (orientation: landscape) {
+      .chat-container {
+        height: 100vh;
+        max-height: 100vh;
+      }
+
+      .messages {
+        flex: 1;
+        min-height: 0;
+      }
+
+      h1 {
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+
+      .subtitle {
+        font-size: 11px;
+        margin-bottom: 8px;
+      }
+
+      .status-bar {
+        margin-bottom: 10px;
       }
     }
   </style>
 </head>
 <body>
   <div class="chat-container">
-    <h1>🌙 Dark Thila Edition</h1>
-    <div class="subtitle">🤖 Powered By Gemini AI 🤖</div>
+    <div class="header">
+      <h1>🌙 Dark Thila Edition</h1>
+      <div class="subtitle">🤖 Powered By Advanced Gemini AI 🤖</div>
+    </div>
+    
+    <div class="status-bar">
+      <div class="status-indicator">
+        <div class="status-dot"></div>
+        <span>Online</span>
+      </div>
+      <div class="message-counter">
+        <span id="message-count">0</span> messages
+      </div>
+    </div>
     
     <div class="messages" id="messages">
       <div class="message bot">
-        🙏 ආයුබෝවන්! ඔබට කිනම් ප්‍රශ්නයක් සිංහලෙන් හා ඉංග්‍රීසියෙන් අහන්න.
+        🙏 Ayubowan! Mama obe AI assistant. Oba mata Sinhala hari English deka terum prashna asanna puluwn. Mata math, science, history, technology saha tavat boho vishayan gana katha karanna puluwn. Obe prashna kianna!
+      </div>
+    </div>
+
+    <div class="typing-indicator" id="typing-indicator">
+      <span>AI answer hadanawa</span>
+      <div class="typing-dots">
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
       </div>
     </div>
     
@@ -283,10 +672,21 @@
       <div class="input-box">
         <textarea 
           id="prompt-input" 
-          placeholder="ඔබේ ප්‍රශ්න මෙතන ලියන්න..."
+          placeholder="Obe prashna metan liyanna... (Enter = yawanna, Shift+Enter = nawa line eka)"
           rows="1"
         ></textarea>
-        <button id="submit-btn">➡️ යවන්න</button>
+        <button class="send-button" id="submit-btn">
+          <span>➡️</span>
+          <span>Send</span>
+        </button>
+      </div>
+      
+      <div class="action-buttons">
+        <button class="action-btn" onclick="insertSample('Math')">🔢 Math</button>
+        <button class="action-btn" onclick="insertSample('Science')">🧪 Science</button>
+        <button class="action-btn" onclick="insertSample('History')">📚 History</button>
+        <button class="action-btn" onclick="insertSample('Technology')">💻 Tech</button>
+        <button class="action-btn" onclick="clearChat()">🗑️ Clear</button>
       </div>
     </div>
   </div>
@@ -301,95 +701,263 @@
     const model = genAI.getGenerativeModel({ 
       model: "gemini-1.5-flash",
       generationConfig: {
-        temperature: 0.7,
-        topP: 0.8,
-        maxOutputTokens: 1000,
+        temperature: 0.8,
+        topP: 0.9,
+        maxOutputTokens: 2000,
       }
     });
 
     const button = document.getElementById("submit-btn");
     const promptInput = document.getElementById("prompt-input");
     const messagesDiv = document.getElementById("messages");
+    const typingIndicator = document.getElementById("typing-indicator");
+    const messageCounter = document.getElementById("message-count");
     
     let isGenerating = false;
+    let messageCount = 0;
+    let conversationHistory = [];
+
+    // Language detection function
+    function detectLanguage(text) {
+      // Remove common punctuation and convert to lowercase
+      const cleanText = text.toLowerCase().replace(/[.,!?;:\s]+/g, ' ').trim();
+      
+      // Sinhala unicode range detection
+      const sinhalaPattern = /[\u0D80-\u0DFF]/;
+      
+      // Common Singlish words and patterns
+      const singlishPatterns = [
+        /\b(mata|oba|eka|meka|tika|kiyanna|karanna|denna|ganna|puluwn|naha|ahnn|mokada|kohomada|ayye|nangi|aiya|akka|mama|api|oyala|meyala|wena|hadanna|banna|yanna|enna|awa|giya|kala|una)\b/i,
+        /\b(da|ne|neda|hoda|nawatha|aniwa|ikmanata|sampurna|salli|amma|thaththa|duwa|putha|loku|podi|hari|nathi|thiyena|inne|hitiya)\b/i,
+        /\b(ehema|ohoma|mona|kona|kawada|dawasa|rata|gaha|uda|yata|pita|ira|diga|asse|baya|salli|kama|bonawa|kanawa|yawanna)\b/i,
+        /(ekak|ekai|ewage|wage|walata|wala|nisa|hinda|ekka|saha|athara|dakka|ahuwa|ahala|karala|una|giya|awa|tika|nam)/i
+      ];
+      
+      // English pattern (common English words)
+      const englishPatterns = [
+        /\b(the|and|for|are|but|not|you|all|can|had|her|was|one|our|out|day|get|has|him|his|how|its|may|new|now|old|see|two|who|boy|did|what|with|have|from|they|know|want|been|good|much|some|time|very|when|come|here|just|like|long|make|many|over|such|take|than|them|well|were|will)\b/i,
+        /\b(hello|hi|how|what|where|when|why|please|thank|thanks|yes|no|maybe|probably|definitely|absolutely|exactly|perfect|awesome|great|good|bad|nice|cool|amazing|wonderful)\b/i
+      ];
+      
+      // Check for Sinhala characters
+      if (sinhalaPattern.test(text)) {
+        return 'sinhala';
+      }
+      
+      // Count Singlish matches
+      let singlishScore = 0;
+      singlishPatterns.forEach(pattern => {
+        const matches = cleanText.match(pattern);
+        if (matches) singlishScore += matches.length;
+      });
+      
+      // Count English matches
+      let englishScore = 0;
+      englishPatterns.forEach(pattern => {
+        const matches = cleanText.match(pattern);
+        if (matches) englishScore += matches.length;
+      });
+      
+      // Decision logic
+      if (singlishScore > englishScore && singlishScore > 0) {
+        return 'singlish';
+      } else if (englishScore > 0) {
+        return 'english';
+      } else {
+        // Default fallback - check for Roman characters vs other scripts
+        const hasRomanChars = /[a-zA-Z]/.test(text);
+        return hasRomanChars ? 'english' : 'sinhala';
+      }
+    }
+
+    // Create language-specific system prompts
+    function getSystemPrompt(language, userInput) {
+      const prompts = {
+        sinhala: `ඔබ සිංහල භාෂාවෙන් පිළිතුරු දෙන AI සහායකයෙකු. සෑම විටම සම්පූර්ණයෙන්ම සිංහල අකුරුවලින් පිළිතුරු දෙන්න. ශ්‍රී ලාංකික සංස්කෘතියට ගැළපෙන ආකාරයෙන් සහ මිත්‍රශීලී ලෙස උත්තර දෙන්න.\n\nUser's question: ${userInput}`,
+        
+        singlish: `You are an AI assistant that responds in Singlish (Sri Lankan English mixed with Sinhala). Always reply in natural Singlish style like Sri Lankans speak. Use words like "mata", "oba", "eka", "puluwn", "naha", "karanna", etc. mixed with English. Be friendly and casual.\n\nUser's question: ${userInput}`,
+        
+        english: `You are a helpful AI assistant. Respond in clear, proper English. Be informative, friendly, and professional in your responses.\n\nUser's question: ${userInput}`
+      };
+      
+      return prompts[language] || prompts.english;
+    }
+
+    function updateMessageCount() {
+      messageCount++;
+      messageCounter.textContent = messageCount;
+    }
 
     function addMessage(text, sender, isError = false) {
       const msg = document.createElement("div");
       msg.className = `message ${sender}`;
       if (isError) msg.classList.add("error");
-      if (sender === "bot" && text.includes("⏳")) {
-        msg.classList.add("loading", "typing");
-      }
-      msg.textContent = text;
+      
+      // Format text with basic markdown support
+      const formattedText = formatMessage(text);
+      msg.innerHTML = formattedText;
+      
       messagesDiv.appendChild(msg);
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      
+      if (sender === "user" || sender === "bot") {
+        updateMessageCount();
+      }
+      
       return msg;
     }
+
+    function formatMessage(text) {
+      return text
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/`(.*?)`/g, '<code style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px;">$1</code>')
+        .replace(/\n/g, '<br>');
+    }
     
-    function updateLastMessage(text, isError = false) {
-      const lastMsg = messagesDiv.lastChild;
-      if (lastMsg) {
-        lastMsg.textContent = text;
-        lastMsg.classList.remove("loading", "typing");
-        if (isError) {
-          lastMsg.classList.add("error");
-        }
-      }
+    function showTypingIndicator() {
+      typingIndicator.style.display = 'flex';
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+    
+    function hideTypingIndicator() {
+      typingIndicator.style.display = 'none';
     }
     
     function setButtonState(disabled) {
       button.disabled = disabled;
       isGenerating = disabled;
-      button.textContent = disabled ? "⏳ ලබයි..." : "➡️ යවන්න";
+      
+      const icon = button.querySelector('span:first-child');
+      const text = button.querySelector('span:last-child');
+      
+      if (disabled) {
+        icon.textContent = '⏳';
+        text.textContent = 'Loading...';
+      } else {
+        icon.textContent = '➡️';
+        text.textContent = 'Send';
+      }
     }
     
     async function handleSubmit() {
       const prompt = promptInput.value.trim();
       if (!prompt || isGenerating) return;
       
+      // Detect user's language
+      const detectedLanguage = detectLanguage(prompt);
+      console.log('Detected language:', detectedLanguage, 'for text:', prompt);
+      
       // Add user message
       addMessage(prompt, "user");
       promptInput.value = "";
       
-      // Add loading message
-      const loadingMsg = addMessage("⏳ පිළිතුර ලබයි... කරුණාකර ඉඩක් දෙන්න", "bot");
+      // Show typing indicator
+      showTypingIndicator();
       setButtonState(true);
 
       try {
-        const result = await model.generateContent(prompt);
+        // Create language-specific prompt
+        const systemPrompt = getSystemPrompt(detectedLanguage, prompt);
+        
+        // Generate response with language-specific instruction
+        const result = await model.generateContent(systemPrompt);
         const response = result.response;
-        
-        if (!response) {
-          throw new Error("Empty response from API");
-        }
-        
         const text = response.text();
+        
         if (!text || text.trim() === "") {
           throw new Error("No text in response");
         }
         
-        updateLastMessage(text);
+        hideTypingIndicator();
+        addMessage(text, "bot");
+        
+        // Store conversation for display purposes
+        conversationHistory.push({ 
+          role: "user", 
+          content: prompt,
+          language: detectedLanguage 
+        });
+        conversationHistory.push({ 
+          role: "model", 
+          content: text,
+          language: detectedLanguage 
+        });
+        
       } catch (error) {
         console.error("API Error:", error);
+        hideTypingIndicator();
         
-        let errorMsg = "❌ දෝෂයක් සිදුවිය: ";
+        let errorMsg = "❌ Error ekak weduna: ";
         if (error.message.includes("API_KEY")) {
-          errorMsg += "API Key වලංගු නැත";
+          errorMsg += "API Key valid naha";
         } else if (error.message.includes("SAFETY")) {
-          errorMsg += "Content policy හේතුවෙන් block විය";
+          errorMsg += "Content policy nisa block una";
         } else if (error.message.includes("QUOTA")) {
-          errorMsg += "API quota අවසන්";
+          errorMsg += "API quota awasan";
         } else if (error.message.includes("network") || error.message.includes("fetch")) {
           errorMsg += "Network connection issue";
         } else {
           errorMsg += error.message || "Unknown error";
         }
         
-        updateLastMessage(errorMsg, true);
+        addMessage(errorMsg, "bot", true);
       } finally {
         setButtonState(false);
       }
     }
+
+    // Global functions for action buttons
+    window.insertSample = function(topic) {
+      const samples = {
+        'Math': 'Math problem ekak solve karanna: 2x + 5 = 15',
+        'Science': 'Water cycle eka gana kiyanna',
+        'History': 'Sri Lankave Anuradhapura yugaya gana kiyanna',
+        'Technology': 'AI technology eka gana saralawa pahadili karanna'
+      };
+      
+      promptInput.value = samples[topic] || '';
+      promptInput.focus();
+    };
+
+    // Add language test buttons for demo
+    window.testLanguages = function() {
+      const testMessages = [
+        'Hello, how are you today?', // English
+        'mata math problem ekak solve karanna help karanna puluwanda?', // Singlish  
+        'ගණිත ගැටලුවක් විසඳන්නට උදව් කරන්න පුළුවන්ද?' // Sinhala
+      ];
+      
+      testMessages.forEach((msg, index) => {
+        setTimeout(() => {
+          promptInput.value = msg;
+          handleSubmit();
+        }, index * 3000);
+      });
+    };
+
+    window.clearChat = function() {
+      if (confirm('Siyalu messages maka danannada?')) {
+        // Keep only the initial bot message
+        const firstMessage = messagesDiv.querySelector('.message.bot');
+        const welcomeText = firstMessage.innerHTML;
+        messagesDiv.innerHTML = '';
+        
+        // Re-add the welcome message
+        const welcomeMsg = document.createElement('div');
+        welcomeMsg.className = 'message bot';
+        welcomeMsg.innerHTML = welcomeText;
+        messagesDiv.appendChild(welcomeMsg);
+        
+        // Reset conversation state
+        conversationHistory = [];
+        messageCount = 1;
+        messageCounter.textContent = '1';
+        
+        // Focus back to input
+        promptInput.focus();
+      }
+    };
 
     // Event listeners
     button.addEventListener("click", handleSubmit);
@@ -401,24 +969,124 @@
       }
     });
     
-    // Auto resize textarea
+    // Auto resize textarea with mobile optimization
     promptInput.addEventListener("input", () => {
       promptInput.style.height = "auto";
-      promptInput.style.height = Math.min(promptInput.scrollHeight, 100) + "px";
+      const maxHeight = window.innerWidth <= 480 ? 80 : 120;
+      promptInput.style.height = Math.min(promptInput.scrollHeight, maxHeight) + "px";
+    });
+    
+    // Mobile-specific optimizations
+    function initMobileOptimizations() {
+      // Prevent zoom on input focus (iOS)
+      if (window.innerWidth <= 768) {
+        const meta = document.querySelector('meta[name="viewport"]');
+        meta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+      }
+
+      // Handle virtual keyboard on mobile
+      if ('visualViewport' in window) {
+        window.visualViewport.addEventListener('resize', () => {
+          const currentHeight = window.visualViewport.height;
+          const fullHeight = window.screen.height;
+          
+          if (currentHeight < fullHeight * 0.75) {
+            // Keyboard is likely open
+            document.body.style.height = currentHeight + 'px';
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+          } else {
+            // Keyboard is closed
+            document.body.style.height = '100vh';
+          }
+        });
+      }
+
+      // Touch optimizations
+      let touchStartY = 0;
+      messagesDiv.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+
+      messagesDiv.addEventListener('touchmove', (e) => {
+        const touchY = e.touches[0].clientY;
+        const scrollTop = messagesDiv.scrollTop;
+        
+        // Prevent overscroll bounce
+        if (scrollTop <= 0 && touchY > touchStartY) {
+          e.preventDefault();
+        }
+        
+        const maxScroll = messagesDiv.scrollHeight - messagesDiv.clientHeight;
+        if (scrollTop >= maxScroll && touchY < touchStartY) {
+          e.preventDefault();
+        }
+      }, { passive: false });
+    }
+
+    // Enhanced keyboard handling for mobile
+    promptInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        
+        // Small delay for mobile to process the keydown
+        setTimeout(() => {
+          handleSubmit();
+        }, 10);
+      }
+    });
+
+    // Handle orientation change
+    window.addEventListener('orientationchange', () => {
+      setTimeout(() => {
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        
+        // Recalculate heights
+        if (window.innerWidth <= 768) {
+          const viewportHeight = window.innerHeight;
+          document.documentElement.style.setProperty('--vh', `${viewportHeight * 0.01}px`);
+        }
+      }, 100);
     });
     
     // Focus on input when page loads
     window.addEventListener("load", () => {
-      promptInput.focus();
+      // Initialize mobile optimizations
+      initMobileOptimizations();
+      
+      // Focus only on desktop to avoid keyboard popup on mobile
+      if (window.innerWidth > 768) {
+        promptInput.focus();
+      }
+      
+      // Set initial viewport height for mobile
+      if (window.innerWidth <= 768) {
+        const viewportHeight = window.innerHeight;
+        document.documentElement.style.setProperty('--vh', `${viewportHeight * 0.01}px`);
+      }
     });
     
-    // Handle offline/online status
-    window.addEventListener("online", () => {
-      console.log("Connection restored");
-    });
+    // Handle connection status
+    function updateConnectionStatus(online) {
+      const statusDot = document.querySelector('.status-dot');
+      const statusText = document.querySelector('.status-indicator span');
+      
+      if (online) {
+        statusDot.style.background = 'var(--success-color)';
+        statusText.textContent = 'Online';
+      } else {
+        statusDot.style.background = 'var(--error-color)';
+        statusText.textContent = 'Offline';
+      }
+    }
     
-    window.addEventListener("offline", () => {
-      console.log("Connection lost");
+    window.addEventListener("online", () => updateConnectionStatus(true));
+    window.addEventListener("offline", () => updateConnectionStatus(false));
+    
+    // Prevent form submission on Enter in chat
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+      }
     });
   </script>
 </body>
