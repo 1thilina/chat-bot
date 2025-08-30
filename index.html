@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gemini AI - Enhanced Dark Thila Edition</title>
+  <title> Dark Thila Edition</title>
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -640,27 +640,27 @@
   <div class="chat-container">
     <div class="header">
       <h1>🌙 Dark Thila Edition</h1>
-      <div class="subtitle">🤖 Powered By Advanced Gemini AI 🤖</div>
+      <div class="subtitle">🤖 Powered By Gemini AI 🤖</div>
     </div>
     
     <div class="status-bar">
       <div class="status-indicator">
         <div class="status-dot"></div>
-        <span>Online</span>
+        <span>සජීවී</span>
       </div>
       <div class="message-counter">
-        <span id="message-count">0</span> messages
+        <span id="message-count">0</span> message
       </div>
     </div>
     
     <div class="messages" id="messages">
       <div class="message bot">
-        🙏 Ayubowan! Mama obe AI assistant. Oba mata Sinhala hari English deka terum prashna asanna puluwn. Mata math, science, history, technology saha tavat boho vishayan gana katha karanna puluwn. Obe prashna kianna!
+        🙏 ආයුබෝවන්! මම ඔබේ AI සහායකයා.  ඔබේ ප්‍රශ්නය කියන්න!
       </div>
     </div>
 
     <div class="typing-indicator" id="typing-indicator">
-      <span>AI answer hadanawa</span>
+      <span>AI පිළිතුර සකස් කරයි</span>
       <div class="typing-dots">
         <div class="typing-dot"></div>
         <div class="typing-dot"></div>
@@ -672,21 +672,21 @@
       <div class="input-box">
         <textarea 
           id="prompt-input" 
-          placeholder="Obe prashna metan liyanna... (Enter = yawanna, Shift+Enter = nawa line eka)"
+          placeholder="ඔබේ ප්‍රශ්න මෙතන ලියන්න... (Enter = යවන්න, Shift+Enter = නව පේළිය)"
           rows="1"
         ></textarea>
         <button class="send-button" id="submit-btn">
           <span>➡️</span>
-          <span>Send</span>
+          <span>යවන්න</span>
         </button>
       </div>
       
       <div class="action-buttons">
-        <button class="action-btn" onclick="insertSample('Math')">🔢 Math</button>
-        <button class="action-btn" onclick="insertSample('Science')">🧪 Science</button>
-        <button class="action-btn" onclick="insertSample('History')">📚 History</button>
-        <button class="action-btn" onclick="insertSample('Technology')">💻 Tech</button>
-        <button class="action-btn" onclick="clearChat()">🗑️ Clear</button>
+        <button class="action-btn" onclick="insertSample('ගණිතය')">🔢 ගණිතය</button>
+        <button class="action-btn" onclick="insertSample('විද්‍යාව')">🧪 විද්‍යාව</button>
+        <button class="action-btn" onclick="insertSample('ඉතිහාසය')">📚 ඉතිහාසය</button>
+        <button class="action-btn" onclick="insertSample('තාක්‍ෂණය')">💻 තාක්‍ෂණය</button>
+        <button class="action-btn" onclick="clearChat()">🗑️ මකන්න</button>
       </div>
     </div>
   </div>
@@ -833,10 +833,10 @@
       
       if (disabled) {
         icon.textContent = '⏳';
-        text.textContent = 'Loading...';
+        text.textContent = 'ලබයි...';
       } else {
         icon.textContent = '➡️';
-        text.textContent = 'Send';
+        text.textContent = 'යවන්න';
       }
     }
     
@@ -888,17 +888,17 @@
         console.error("API Error:", error);
         hideTypingIndicator();
         
-        let errorMsg = "❌ Error ekak weduna: ";
+        let errorMsg = "❌ දෝෂයක් සිදුවිය: ";
         if (error.message.includes("API_KEY")) {
-          errorMsg += "API Key valid naha";
+          errorMsg += "API Key වලංගු නැත";
         } else if (error.message.includes("SAFETY")) {
-          errorMsg += "Content policy nisa block una";
+          errorMsg += "Content policy හේතුවෙන් block විය";
         } else if (error.message.includes("QUOTA")) {
-          errorMsg += "API quota awasan";
+          errorMsg += "API quota අවසන්";
         } else if (error.message.includes("network") || error.message.includes("fetch")) {
-          errorMsg += "Network connection issue";
+          errorMsg += "Network connection ගැටළුව";
         } else {
-          errorMsg += error.message || "Unknown error";
+          errorMsg += error.message || "නොදන්නා දෝෂයක්";
         }
         
         addMessage(errorMsg, "bot", true);
@@ -910,10 +910,10 @@
     // Global functions for action buttons
     window.insertSample = function(topic) {
       const samples = {
-        'Math': 'Math problem ekak solve karanna: 2x + 5 = 15',
-        'Science': 'Water cycle eka gana kiyanna',
-        'History': 'Sri Lankave Anuradhapura yugaya gana kiyanna',
-        'Technology': 'AI technology eka gana saralawa pahadili karanna'
+        'ගණිතය': 'ගණිත ගැටළුවක් විසඳන්න: 2x + 5 = 15',
+        'විද්‍යාව': 'ජල චක්‍රය ගැන කියන්න',
+        'ඉතිහාසය': 'ශ්‍රී ලංකාවේ අනුරාධපුර යුගය ගැන කියන්න',
+        'තාක්‍ෂණය': 'AI තාක්‍ෂණය ගැන සරලව පැහැදිලි කරන්න'
       };
       
       promptInput.value = samples[topic] || '';
@@ -937,7 +937,7 @@
     };
 
     window.clearChat = function() {
-      if (confirm('Siyalu messages maka danannada?')) {
+      if (confirm('සියලු පණිවිඩ මකා දමන්නද?')) {
         // Keep only the initial bot message
         const firstMessage = messagesDiv.querySelector('.message.bot');
         const welcomeText = firstMessage.innerHTML;
@@ -1072,10 +1072,10 @@
       
       if (online) {
         statusDot.style.background = 'var(--success-color)';
-        statusText.textContent = 'Online';
+        statusText.textContent = 'සජීවී';
       } else {
         statusDot.style.background = 'var(--error-color)';
-        statusText.textContent = 'Offline';
+        statusText.textContent = 'නොසම්බන්ධ';
       }
     }
     
