@@ -1,1 +1,1 @@
-# Nowa-AI
+# NowaMind-AI
