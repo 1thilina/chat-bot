@@ -25,15 +25,4 @@
 
 ---
 
-## ⚙️ Installation
-
-### Prerequisites
-- Node.js ≥ 16.x  
-- npm or yarn  
-- Python ≥ 3.9 (if backend is Python-based)  
-
-### Steps
-
-1. Repository එක clone කරන්න:
-   ```bash
-   git clone https://github.com/yourusername/NowaMind-AI.git
+##
