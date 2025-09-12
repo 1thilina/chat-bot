@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NovaMind AI</title>
+  <title>🌙 Dark Thila Edition</title>
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,6 +14,7 @@
     :root {
       --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --voice-gradient: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
       --bg-gradient: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
       --card-bg: rgba(255, 255, 255, 0.05);
       --glass-bg: rgba(255, 255, 255, 0.1);
@@ -22,6 +23,7 @@
       --accent-color: #00d4ff;
       --success-color: #00ff88;
       --error-color: #ff4757;
+      --voice-active: #ff6b6b;
       --border-color: rgba(255, 255, 255, 0.1);
     }
 
@@ -140,6 +142,8 @@
       margin-bottom: 20px;
       font-size: 14px;
       border: 1px solid var(--border-color);
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
     .status-indicator {
@@ -154,6 +158,37 @@
       border-radius: 50%;
       background: var(--success-color);
       animation: pulse 2s infinite;
+    }
+
+    .voice-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .voice-indicator {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text-secondary);
+      transition: all 0.3s ease;
+    }
+
+    .voice-indicator.listening {
+      background: var(--voice-active);
+      animation: voicePulse 1s infinite;
+    }
+
+    .voice-indicator.speaking {
+      background: var(--accent-color);
+      animation: voicePulse 1s infinite;
+    }
+
+    @keyframes voicePulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.7; }
     }
 
     .message-counter {
@@ -193,6 +228,40 @@
       animation: messageSlide 0.5s ease;
       position: relative;
       font-size: 15px;
+    }
+
+    .message.voice-message {
+      border: 2px solid var(--voice-active);
+      box-shadow: 0 0 15px rgba(255, 107, 107, 0.3);
+    }
+
+    .voice-controls {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      display: flex;
+      gap: 5px;
+    }
+
+    .voice-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      font-size: 10px;
+      color: var(--text-secondary);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .voice-btn:hover {
+      background: var(--accent-color);
+      color: white;
+      transform: scale(1.1);
     }
 
     @keyframes messageSlide {
@@ -282,6 +351,11 @@
       box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
     }
 
+    .input-box.listening {
+      border-color: var(--voice-active);
+      box-shadow: 0 0 20px rgba(255, 107, 107, 0.4);
+    }
+
     textarea {
       flex: 1;
       border: none;
@@ -298,6 +372,37 @@
     
     textarea::placeholder {
       color: var(--text-secondary);
+    }
+
+    .voice-input-btn {
+      background: var(--voice-gradient);
+      border: none;
+      border-radius: 15px;
+      padding: 12px 16px;
+      cursor: pointer;
+      font-size: 18px;
+      color: white;
+      transition: all 0.3s ease;
+      margin-right: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 50px;
+    }
+
+    .voice-input-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+    }
+
+    .voice-input-btn.listening {
+      background: var(--error-color);
+      animation: voiceListening 1s infinite;
+    }
+
+    @keyframes voiceListening {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
     }
 
     .send-button {
@@ -356,6 +461,49 @@
       background: var(--accent-color);
       color: white;
       transform: translateY(-1px);
+    }
+
+    .voice-settings {
+      background: var(--glass-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 8px 15px;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .voice-toggle {
+      position: relative;
+      width: 40px;
+      height: 20px;
+      background: var(--border-color);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .voice-toggle.active {
+      background: var(--success-color);
+    }
+
+    .voice-toggle::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 16px;
+      height: 16px;
+      background: white;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .voice-toggle.active::after {
+      transform: translateX(20px);
     }
 
     .typing-indicator {
@@ -441,6 +589,8 @@
         padding: 6px 12px;
         margin-bottom: 15px;
         font-size: 12px;
+        flex-direction: column;
+        gap: 5px;
       }
 
       .messages {
@@ -478,6 +628,12 @@
         padding: 12px;
         line-height: 1.4;
       }
+
+      .voice-input-btn {
+        padding: 10px 12px;
+        font-size: 16px;
+        min-width: 44px;
+      }
       
       .send-button {
         padding: 10px 14px;
@@ -501,6 +657,14 @@
         text-align: center;
       }
 
+      .voice-settings {
+        margin-top: 8px;
+        padding: 6px 12px;
+        font-size: 11px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
       .typing-indicator {
         font-size: 12px;
         margin: 8px 0;
@@ -522,8 +686,7 @@
       
       .input-box {
         padding: 3px;
-        flex-direction: column;
-        gap: 8px;
+        flex-direction: row;
       }
 
       textarea {
@@ -532,18 +695,19 @@
         background: rgba(255, 255, 255, 0.05);
       }
 
-      .send-button {
-        width: 100%;
-        padding: 12px;
-        justify-content: center;
-        border-radius: 12px;
+      .voice-input-btn {
+        margin-right: 3px;
+        padding: 8px 10px;
+        min-width: 40px;
+        font-size: 14px;
       }
 
-      .status-bar {
-        flex-direction: column;
-        gap: 4px;
-        text-align: center;
-        padding: 8px;
+      .send-button {
+        padding: 8px 12px;
+        justify-content: center;
+        border-radius: 12px;
+        min-width: 70px;
+        font-size: 12px;
       }
 
       .message {
@@ -564,29 +728,9 @@
       }
     }
 
-    @media (max-width: 360px) {
-      .chat-container {
-        padding: 8px;
-      }
-
-      h1 {
-        font-size: 16px;
-      }
-
-      .action-btn {
-        min-width: calc(100% / 3 - 4px);
-        font-size: 9px;
-      }
-
-      .message {
-        font-size: 12px;
-        padding: 6px 10px;
-      }
-    }
-
     /* Touch-friendly improvements */
     @media (hover: none) and (pointer: coarse) {
-      .send-button, .action-btn {
+      .send-button, .action-btn, .voice-input-btn {
         min-height: 44px;
       }
 
@@ -598,40 +742,13 @@
         transform: none;
       }
 
-      .send-button:hover, .action-btn:hover {
+      .send-button:hover, .action-btn:hover, .voice-input-btn:hover {
         transform: none;
       }
 
-      .send-button:active, .action-btn:active {
+      .send-button:active, .action-btn:active, .voice-input-btn:active {
         transform: scale(0.98);
         opacity: 0.8;
-      }
-    }
-
-    /* Landscape mobile */
-    @media (max-width: 768px) and (orientation: landscape) {
-      .chat-container {
-        height: 100vh;
-        max-height: 100vh;
-      }
-
-      .messages {
-        flex: 1;
-        min-height: 0;
-      }
-
-      h1 {
-        font-size: 18px;
-        margin-bottom: 5px;
-      }
-
-      .subtitle {
-        font-size: 11px;
-        margin-bottom: 8px;
-      }
-
-      .status-bar {
-        margin-bottom: 10px;
       }
     }
   </style>
@@ -639,14 +756,18 @@
 <body>
   <div class="chat-container">
     <div class="header">
-      <h1> NovaMind AI </h1>
-      <div class="subtitle">🤖 Powered By Gemini AI 🤖</div>
+      <h1>🌙 NOVA MIND AI </h1>
+      <div class="subtitle">🤖 Powered By NOVA MIND AI  🎤</div>
     </div>
     
     <div class="status-bar">
       <div class="status-indicator">
         <div class="status-dot"></div>
         <span>සජීවී</span>
+      </div>
+      <div class="voice-status">
+        <div class="voice-indicator" id="voice-indicator"></div>
+        <span id="voice-status">nova mind</span>
       </div>
       <div class="message-counter">
         <span id="message-count">0</span> message
@@ -655,12 +776,15 @@
     
     <div class="messages" id="messages">
       <div class="message bot">
-        🙏 ආයුබෝවන්! මම NovaMind AI ඔබේ AI සහායකයා.  ඔබේ ප්‍රශ්නය කියන්න!
+        🙏 ආයුබෝවන්! මම NOVA MIND AI සහායකයා. ඔබේ ප්‍රශ්න කියන්න හෝ ටයිප් කරන්න!
+        <div class="voice-controls">
+          <button class="voice-btn" onclick="speakMessage(this)" title="කටහඬින් අසන්න">🔊</button>
+        </div>
       </div>
     </div>
 
     <div class="typing-indicator" id="typing-indicator">
-      <span>AI පිළිතුර සකස් කරයි</span>
+      <span>NOVA MIND AI පිළිතුර සකස් කරයි</span>
       <div class="typing-dots">
         <div class="typing-dot"></div>
         <div class="typing-dot"></div>
@@ -669,7 +793,10 @@
     </div>
     
     <div class="input-container">
-      <div class="input-box">
+      <div class="input-box" id="input-box">
+        <button class="voice-input-btn" id="voice-btn" title="කටහඬින් කතා කරන්න">
+          🎤
+        </button>
         <textarea 
           id="prompt-input" 
           placeholder="ඔබේ ප්‍රශ්න මෙතන ලියන්න... (Enter = යවන්න, Shift+Enter = නව පේළිය)"
@@ -681,8 +808,14 @@
         </button>
       </div>
       
+      <div class="voice-settings">
+        <span>කටහඬ ස්වයංක්‍රීය:</span>
+        <div class="voice-toggle" id="voice-toggle" onclick="toggleVoiceOutput()"></div>
+        <span id="voice-toggle-text">අක්‍රීය</span>
+      </div>
+      
       <div class="action-buttons">
-        <button class="action-btn" onclick="insertSample('ගණිතය')">🔢 ගණිතය</button>
+        <button class="action-btn" onclick="insertSample('ගණිතය')">📢 ගණිතය</button>
         <button class="action-btn" onclick="insertSample('විද්‍යාව')">🧪 විද්‍යාව</button>
         <button class="action-btn" onclick="insertSample('ඉතිහාසය')">📚 ඉතිහාසය</button>
         <button class="action-btn" onclick="insertSample('තාක්‍ෂණය')">💻 තාක්‍ෂණය</button>
@@ -707,25 +840,237 @@
       }
     });
 
+    // DOM Elements
     const button = document.getElementById("submit-btn");
     const promptInput = document.getElementById("prompt-input");
     const messagesDiv = document.getElementById("messages");
     const typingIndicator = document.getElementById("typing-indicator");
     const messageCounter = document.getElementById("message-count");
+    const voiceBtn = document.getElementById("voice-btn");
+    const voiceIndicator = document.getElementById("voice-indicator");
+    const voiceStatus = document.getElementById("voice-status");
+    const voiceToggle = document.getElementById("voice-toggle");
+    const voiceToggleText = document.getElementById("voice-toggle-text");
+    const inputBox = document.getElementById("input-box");
     
-    let isGenerating = false;
-    let messageCount = 0;
+    // Voice variables
+    let isListening = false;
+    let recognition = null;
+    let speechSynthesis = window.speechSynthesis;
+    let autoVoiceOutput = false;
+    let isSpeaking = false;
     let conversationHistory = [];
+    let messageCount = 0;
+    let isGenerating = false;
 
-    // Language detection function
-    function detectLanguage(text) {
-      // Remove common punctuation and convert to lowercase
-      const cleanText = text.toLowerCase().replace(/[.,!?;:\s]+/g, ' ').trim();
+    // Initialize Speech Recognition
+    function initializeSpeechRecognition() {
+      if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        recognition = new SpeechRecognition();
+        
+        recognition.continuous = false;
+        recognition.interimResults = true;
+        recognition.lang = 'si-LK'; // Sinhala primary, will fallback to en-US
+        
+        recognition.onstart = function() {
+          isListening = true;
+          voiceBtn.classList.add('listening');
+          inputBox.classList.add('listening');
+          voiceIndicator.classList.add('listening');
+          voiceStatus.textContent = 'අසනවා...';
+        };
+        
+        recognition.onresult = function(event) {
+          let finalTranscript = '';
+          let interimTranscript = '';
+          
+          for (let i = event.resultIndex; i < event.results.length; i++) {
+            const transcript = event.results[i][0].transcript;
+            if (event.results[i].isFinal) {
+              finalTranscript += transcript;
+            } else {
+              interimTranscript += transcript;
+            }
+          }
+          
+          if (finalTranscript) {
+            promptInput.value = finalTranscript.trim();
+            // Auto-resize textarea
+            promptInput.style.height = "auto";
+            promptInput.style.height = Math.min(promptInput.scrollHeight, 120) + "px";
+          } else if (interimTranscript) {
+            // Show interim results with a different style
+            promptInput.placeholder = `අසනවා: "${interimTranscript.trim()}"`;
+          }
+        };
+        
+        recognition.onerror = function(event) {
+          console.error('Speech recognition error:', event.error);
+          stopListening();
+          
+          let errorMsg = 'කටහඬ දෝෂය: ';
+          switch(event.error) {
+            case 'no-speech':
+              errorMsg += 'කටහඬක් අසන්නෙ නැහැ';
+              break;
+            case 'audio-capture':
+              errorMsg += 'මයික්‍රෝෆෝන් ප්‍රවේශ නැහැ';
+              break;
+            case 'not-allowed':
+              errorMsg += 'මයික්‍රෝෆෝන් අනුමතිය නැහැ';
+              break;
+            case 'network':
+              errorMsg += 'ජාල සම්බන්ධතාව නැහැ';
+              break;
+            default:
+              errorMsg += 'නොදන්නා දෝෂයක්';
+          }
+          voiceStatus.textContent = errorMsg;
+          
+          setTimeout(() => {
+            voiceStatus.textContent = 'කටහඬ සූදානම්';
+          }, 3000);
+        };
+        
+        recognition.onend = function() {
+          stopListening();
+          if (promptInput.value.trim()) {
+            // Auto-submit after voice input
+            setTimeout(() => {
+              if (!isGenerating && promptInput.value.trim()) {
+                handleSubmit();
+              }
+            }, 500);
+          }
+        };
+        
+        return true;
+      } else {
+        console.warn('Speech recognition not supported');
+        voiceBtn.style.display = 'none';
+        return false;
+      }
+    }
+
+    // Start/Stop voice recognition
+    function toggleVoiceInput() {
+      if (!recognition) {
+        voiceStatus.textContent = 'කටහඬ සහාය නැහැ';
+        return;
+      }
       
-      // Sinhala unicode range detection
+      if (isListening) {
+        recognition.stop();
+      } else {
+        // Clear any previous text and start fresh
+        promptInput.value = '';
+        promptInput.placeholder = "ඔබේ ප්‍රශ්න මෙතන ලියන්න...";
+        
+        try {
+          recognition.start();
+        } catch (error) {
+          console.error('Failed to start recognition:', error);
+          voiceStatus.textContent = 'කටහඬ අරඹන්න අසමත්';
+        }
+      }
+    }
+
+    function stopListening() {
+      isListening = false;
+      voiceBtn.classList.remove('listening');
+      inputBox.classList.remove('listening');
+      voiceIndicator.classList.remove('listening');
+      voiceStatus.textContent = 'කටහඬ සූදානම්';
+      promptInput.placeholder = "ඔබේ ප්‍රශ්න මෙතන ලියන්න...";
+    }
+
+    // Text-to-Speech functions
+    function speakMessage(button) {
+      const message = button.closest('.message');
+      const textContent = message.textContent.replace(/🔊/g, '').trim();
+      speakText(textContent);
+    }
+
+    function speakText(text) {
+      if (isSpeaking) {
+        speechSynthesis.cancel();
+        isSpeaking = false;
+        voiceIndicator.classList.remove('speaking');
+        voiceStatus.textContent = 'කටහඬ සූදානම්';
+        return;
+      }
+      
+      if (!text || text.trim() === '') return;
+      
+      // Clean text for better speech
+      const cleanText = text
+        .replace(/[🤖🙏📢🧪📚💻🗑️➡️🎤🔊]/g, '')
+        .replace(/\*/g, '')
+        .replace(/`/g, '')
+        .trim();
+      
+      const utterance = new SpeechSynthesisUtterance(cleanText);
+      
+      // Configure voice settings
+      utterance.rate = 0.8;
+      utterance.pitch = 1.0;
+      utterance.volume = 0.9;
+      
+      // Try to use Sinhala voice if available
+      const voices = speechSynthesis.getVoices();
+      const sinhalaVoice = voices.find(voice => 
+        voice.lang.includes('si') || voice.lang.includes('ta') || voice.name.includes('Indian')
+      );
+      const englishVoice = voices.find(voice => 
+        voice.lang.includes('en') && (voice.name.includes('Google') || voice.name.includes('Microsoft'))
+      );
+      
+      if (sinhalaVoice) {
+        utterance.voice = sinhalaVoice;
+      } else if (englishVoice) {
+        utterance.voice = englishVoice;
+      }
+      
+      utterance.onstart = function() {
+        isSpeaking = true;
+        voiceIndicator.classList.add('speaking');
+        voiceStatus.textContent = 'කියනවා...';
+      };
+      
+      utterance.onend = function() {
+        isSpeaking = false;
+        voiceIndicator.classList.remove('speaking');
+        voiceStatus.textContent = 'කටහඬ සූදානම්';
+      };
+      
+      utterance.onerror = function(event) {
+        console.error('Speech synthesis error:', event);
+        isSpeaking = false;
+        voiceIndicator.classList.remove('speaking');
+        voiceStatus.textContent = 'කටහඬ දෝෂය';
+        setTimeout(() => {
+          voiceStatus.textContent = 'කටහඬ සූදානම්';
+        }, 2000);
+      };
+      
+      speechSynthesis.speak(utterance);
+    }
+
+    function toggleVoiceOutput() {
+      autoVoiceOutput = !autoVoiceOutput;
+      voiceToggle.classList.toggle('active', autoVoiceOutput);
+      voiceToggleText.textContent = autoVoiceOutput ? 'සක්‍රීය' : 'අක්‍රීය';
+      
+      // Save setting to localStorage alternative (in-memory)
+      window.voiceOutputSetting = autoVoiceOutput;
+    }
+
+    // Language detection function (same as before)
+    function detectLanguage(text) {
+      const cleanText = text.toLowerCase().replace(/[.,!?;:\s]+/g, ' ').trim();
       const sinhalaPattern = /[\u0D80-\u0DFF]/;
       
-      // Common Singlish words and patterns
       const singlishPatterns = [
         /\b(mata|oba|eka|meka|tika|kiyanna|karanna|denna|ganna|puluwn|naha|ahnn|mokada|kohomada|ayye|nangi|aiya|akka|mama|api|oyala|meyala|wena|hadanna|banna|yanna|enna|awa|giya|kala|una)\b/i,
         /\b(da|ne|neda|hoda|nawatha|aniwa|ikmanata|sampurna|salli|amma|thaththa|duwa|putha|loku|podi|hari|nathi|thiyena|inne|hitiya)\b/i,
@@ -733,47 +1078,40 @@
         /(ekak|ekai|ewage|wage|walata|wala|nisa|hinda|ekka|saha|athara|dakka|ahuwa|ahala|karala|una|giya|awa|tika|nam)/i
       ];
       
-      // English pattern (common English words)
       const englishPatterns = [
         /\b(the|and|for|are|but|not|you|all|can|had|her|was|one|our|out|day|get|has|him|his|how|its|may|new|now|old|see|two|who|boy|did|what|with|have|from|they|know|want|been|good|much|some|time|very|when|come|here|just|like|long|make|many|over|such|take|than|them|well|were|will)\b/i,
         /\b(hello|hi|how|what|where|when|why|please|thank|thanks|yes|no|maybe|probably|definitely|absolutely|exactly|perfect|awesome|great|good|bad|nice|cool|amazing|wonderful)\b/i
       ];
       
-      // Check for Sinhala characters
       if (sinhalaPattern.test(text)) {
         return 'sinhala';
       }
       
-      // Count Singlish matches
       let singlishScore = 0;
       singlishPatterns.forEach(pattern => {
         const matches = cleanText.match(pattern);
         if (matches) singlishScore += matches.length;
       });
       
-      // Count English matches
       let englishScore = 0;
       englishPatterns.forEach(pattern => {
         const matches = cleanText.match(pattern);
         if (matches) englishScore += matches.length;
       });
       
-      // Decision logic
       if (singlishScore > englishScore && singlishScore > 0) {
         return 'singlish';
       } else if (englishScore > 0) {
         return 'english';
       } else {
-        // Default fallback - check for Roman characters vs other scripts
         const hasRomanChars = /[a-zA-Z]/.test(text);
         return hasRomanChars ? 'english' : 'sinhala';
       }
     }
 
-    // Create language-specific system prompts
     function getSystemPrompt(language, userInput) {
       const prompts = {
-        sinhala: `ඔබ සිංහල භාෂාවෙන් පිළිතුරු දෙන AI සහායකයෙකු. සෑම විටම සම්පූර්ණයෙන්ම සිංහල අකුරුවලින් පිළිතුරු දෙන්න. ශ්‍රී ලාංකික සංස්කෘතියට ගැළපෙන ආකාරයෙන් සහ මිත්‍රශීලී ලෙස උත්තර දෙන්න.\n\nUser's question: ${userInput}`,
+        sinhala: `ඔබ සිංහල භාෂාවෙන් පිළිතුරු දෙන AI සහායකයෙක්. සිමහ විටම සම්පූර්ණයෙන්ම සිංහල අකුරුවලින් පිළිතුරු දෙන්න. ශ්‍රී ලංකික සංස්කෘතියට ගැළපෙන ආකාරයෙන් සහ මිත්‍රශීලීව ලෙස උත්තර දෙන්න.\n\nUser's question: ${userInput}`,
         
         singlish: `You are an AI assistant that responds in Singlish (Sri Lankan English mixed with Sinhala). Always reply in natural Singlish style like Sri Lankans speak. Use words like "mata", "oba", "eka", "puluwn", "naha", "karanna", etc. mixed with English. Be friendly and casual.\n\nUser's question: ${userInput}`,
         
@@ -788,20 +1126,37 @@
       messageCounter.textContent = messageCount;
     }
 
-    function addMessage(text, sender, isError = false) {
+    function addMessage(text, sender, isError = false, isVoiceMessage = false) {
       const msg = document.createElement("div");
       msg.className = `message ${sender}`;
       if (isError) msg.classList.add("error");
+      if (isVoiceMessage) msg.classList.add("voice-message");
       
-      // Format text with basic markdown support
       const formattedText = formatMessage(text);
       msg.innerHTML = formattedText;
+      
+      // Add voice controls for bot messages
+      if (sender === 'bot') {
+        const voiceControls = document.createElement('div');
+        voiceControls.className = 'voice-controls';
+        voiceControls.innerHTML = `
+          <button class="voice-btn" onclick="speakMessage(this)" title="කටහඬින් අසන්න">🔊</button>
+        `;
+        msg.appendChild(voiceControls);
+      }
       
       messagesDiv.appendChild(msg);
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
       
       if (sender === "user" || sender === "bot") {
         updateMessageCount();
+      }
+      
+      // Auto-speak bot responses if enabled
+      if (sender === 'bot' && autoVoiceOutput && !isError) {
+        setTimeout(() => {
+          speakText(text);
+        }, 500);
       }
       
       return msg;
@@ -844,23 +1199,27 @@
       const prompt = promptInput.value.trim();
       if (!prompt || isGenerating) return;
       
-      // Detect user's language
+      // Stop any ongoing speech
+      if (isSpeaking) {
+        speechSynthesis.cancel();
+        isSpeaking = false;
+        voiceIndicator.classList.remove('speaking');
+        voiceStatus.textContent = 'කටහඬ සූදානම්';
+      }
+      
       const detectedLanguage = detectLanguage(prompt);
-      console.log('Detected language:', detectedLanguage, 'for text:', prompt);
+      const isVoiceInput = isListening || promptInput.classList.contains('voice-input');
       
       // Add user message
-      addMessage(prompt, "user");
+      addMessage(prompt, "user", false, isVoiceInput);
       promptInput.value = "";
+      promptInput.classList.remove('voice-input');
       
-      // Show typing indicator
       showTypingIndicator();
       setButtonState(true);
 
       try {
-        // Create language-specific prompt
         const systemPrompt = getSystemPrompt(detectedLanguage, prompt);
-        
-        // Generate response with language-specific instruction
         const result = await model.generateContent(systemPrompt);
         const response = result.response;
         const text = response.text();
@@ -872,7 +1231,6 @@
         hideTypingIndicator();
         addMessage(text, "bot");
         
-        // Store conversation for display purposes
         conversationHistory.push({ 
           role: "user", 
           content: prompt,
@@ -888,7 +1246,7 @@
         console.error("API Error:", error);
         hideTypingIndicator();
         
-        let errorMsg = "❌ දෝෂයක් සිදුවිය: ";
+        let errorMsg = "⚠ දෝෂයක් සිදුවිය: ";
         if (error.message.includes("API_KEY")) {
           errorMsg += "API Key වලංගු නැත";
         } else if (error.message.includes("SAFETY")) {
@@ -907,7 +1265,7 @@
       }
     }
 
-    // Global functions for action buttons
+    // Global functions
     window.insertSample = function(topic) {
       const samples = {
         'ගණිතය': 'ගණිත ගැටළුවක් විසඳන්න: 2x + 5 = 15',
@@ -920,47 +1278,35 @@
       promptInput.focus();
     };
 
-    // Add language test buttons for demo
-    window.testLanguages = function() {
-      const testMessages = [
-        'Hello, how are you today?', // English
-        'mata math problem ekak solve karanna help karanna puluwanda?', // Singlish  
-        'ගණිත ගැටලුවක් විසඳන්නට උදව් කරන්න පුළුවන්ද?' // Sinhala
-      ];
-      
-      testMessages.forEach((msg, index) => {
-        setTimeout(() => {
-          promptInput.value = msg;
-          handleSubmit();
-        }, index * 3000);
-      });
-    };
-
     window.clearChat = function() {
       if (confirm('සියලු පණිවිඩ මකා දමන්නද?')) {
-        // Keep only the initial bot message
         const firstMessage = messagesDiv.querySelector('.message.bot');
         const welcomeText = firstMessage.innerHTML;
         messagesDiv.innerHTML = '';
         
-        // Re-add the welcome message
         const welcomeMsg = document.createElement('div');
         welcomeMsg.className = 'message bot';
         welcomeMsg.innerHTML = welcomeText;
         messagesDiv.appendChild(welcomeMsg);
         
-        // Reset conversation state
         conversationHistory = [];
         messageCount = 1;
         messageCounter.textContent = '1';
-        
-        // Focus back to input
         promptInput.focus();
       }
     };
 
+    window.speakMessage = function(button) {
+      const message = button.closest('.message');
+      const textContent = message.textContent.replace(/🔊/g, '').trim();
+      speakText(textContent);
+    };
+
+    window.toggleVoiceOutput = toggleVoiceOutput;
+
     // Event listeners
     button.addEventListener("click", handleSubmit);
+    voiceBtn.addEventListener("click", toggleVoiceInput);
     
     promptInput.addEventListener("keydown", (e) => {
       if (e.key === "Enter" && !e.shiftKey) {
@@ -969,103 +1315,13 @@
       }
     });
     
-    // Auto resize textarea with mobile optimization
     promptInput.addEventListener("input", () => {
       promptInput.style.height = "auto";
       const maxHeight = window.innerWidth <= 480 ? 80 : 120;
       promptInput.style.height = Math.min(promptInput.scrollHeight, maxHeight) + "px";
     });
-    
-    // Mobile-specific optimizations
-    function initMobileOptimizations() {
-      // Prevent zoom on input focus (iOS)
-      if (window.innerWidth <= 768) {
-        const meta = document.querySelector('meta[name="viewport"]');
-        meta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
-      }
 
-      // Handle virtual keyboard on mobile
-      if ('visualViewport' in window) {
-        window.visualViewport.addEventListener('resize', () => {
-          const currentHeight = window.visualViewport.height;
-          const fullHeight = window.screen.height;
-          
-          if (currentHeight < fullHeight * 0.75) {
-            // Keyboard is likely open
-            document.body.style.height = currentHeight + 'px';
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-          } else {
-            // Keyboard is closed
-            document.body.style.height = '100vh';
-          }
-        });
-      }
-
-      // Touch optimizations
-      let touchStartY = 0;
-      messagesDiv.addEventListener('touchstart', (e) => {
-        touchStartY = e.touches[0].clientY;
-      }, { passive: true });
-
-      messagesDiv.addEventListener('touchmove', (e) => {
-        const touchY = e.touches[0].clientY;
-        const scrollTop = messagesDiv.scrollTop;
-        
-        // Prevent overscroll bounce
-        if (scrollTop <= 0 && touchY > touchStartY) {
-          e.preventDefault();
-        }
-        
-        const maxScroll = messagesDiv.scrollHeight - messagesDiv.clientHeight;
-        if (scrollTop >= maxScroll && touchY < touchStartY) {
-          e.preventDefault();
-        }
-      }, { passive: false });
-    }
-
-    // Enhanced keyboard handling for mobile
-    promptInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-        
-        // Small delay for mobile to process the keydown
-        setTimeout(() => {
-          handleSubmit();
-        }, 10);
-      }
-    });
-
-    // Handle orientation change
-    window.addEventListener('orientationchange', () => {
-      setTimeout(() => {
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
-        
-        // Recalculate heights
-        if (window.innerWidth <= 768) {
-          const viewportHeight = window.innerHeight;
-          document.documentElement.style.setProperty('--vh', `${viewportHeight * 0.01}px`);
-        }
-      }, 100);
-    });
-    
-    // Focus on input when page loads
-    window.addEventListener("load", () => {
-      // Initialize mobile optimizations
-      initMobileOptimizations();
-      
-      // Focus only on desktop to avoid keyboard popup on mobile
-      if (window.innerWidth > 768) {
-        promptInput.focus();
-      }
-      
-      // Set initial viewport height for mobile
-      if (window.innerWidth <= 768) {
-        const viewportHeight = window.innerHeight;
-        document.documentElement.style.setProperty('--vh', `${viewportHeight * 0.01}px`);
-      }
-    });
-    
-    // Handle connection status
+    // Connection status
     function updateConnectionStatus(online) {
       const statusDot = document.querySelector('.status-dot');
       const statusText = document.querySelector('.status-indicator span');
@@ -1081,14 +1337,55 @@
     
     window.addEventListener("online", () => updateConnectionStatus(true));
     window.addEventListener("offline", () => updateConnectionStatus(false));
-    
-    // Prevent form submission on Enter in chat
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
-        e.preventDefault();
+
+    // Initialize everything
+    window.addEventListener("load", () => {
+      // Initialize speech recognition
+      const speechSupported = initializeSpeechRecognition();
+      
+      if (!speechSupported) {
+        voiceStatus.textContent = 'කටහඬ සහාය නැහැ';
+        voiceBtn.disabled = true;
+        voiceBtn.style.opacity = '0.5';
       }
+      
+      // Load voices for speech synthesis
+      if ('speechSynthesis' in window) {
+        speechSynthesis.onvoiceschanged = function() {
+          const voices = speechSynthesis.getVoices();
+          console.log('Available voices:', voices.map(v => `${v.name} (${v.lang})`));
+        };
+      }
+      
+      // Restore voice output setting
+      if (window.voiceOutputSetting) {
+        autoVoiceOutput = true;
+        voiceToggle.classList.add('active');
+        voiceToggleText.textContent = 'සක්‍රීය';
+      }
+      
+      // Focus handling
+      if (window.innerWidth > 768) {
+        promptInput.focus();
+      }
+      
+      // Mobile viewport fix
+      if (window.innerWidth <= 768) {
+        const viewportHeight = window.innerHeight;
+        document.documentElement.style.setProperty('--vh', `${viewportHeight * 0.01}px`);
+      }
+    });
+
+    // Handle orientation change
+    window.addEventListener('orientationchange', () => {
+      setTimeout(() => {
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        if (window.innerWidth <= 768) {
+          const viewportHeight = window.innerHeight;
+          document.documentElement.style.setProperty('--vh', `${viewportHeight * 0.01}px`);
+        }
+      }, 100);
     });
   </script>
 </body>
 </html>
-
